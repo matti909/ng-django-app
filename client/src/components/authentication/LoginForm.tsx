@@ -1,21 +1,20 @@
+import { useUserActions } from "../../hooks/user.actions";
 import { FormEvent, useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
 
-type UserLogin = {
+export type UserLogin = {
   username: string;
   password: string;
 };
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState<UserLogin>({
     username: "",
     password: "",
   });
   const [error, setError] = useState(null);
+  const { login } = useUserActions();
 
   const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -32,22 +31,11 @@ const LoginForm = () => {
       password: form.password,
     };
 
-    axios
-      .post("http://localhost:8000/api/auth/login", { ...data })
-      .then((res: any) => {
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            access: res.data.access,
-            refresh: res.data.refresh,
-            user: res.data.user,
-          })
-        );
-        navigate("/");
-      })
-      .catch((err) => {
-        setError(err);
-      });
+    login(data).catch((err: any) => {
+      if (err.message) {
+        setError(err.request.response);
+      }
+    });
   };
 
   return (
