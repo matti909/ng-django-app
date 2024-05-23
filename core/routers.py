@@ -1,11 +1,11 @@
-from rest_framework_nested import routers  # type: ignore
+from rest_framework_nested import routers
 
 from core.post.viewsets import PostViewSet
 from core.user.viewsets import UserViewSet
 from core.auth.viewsets import RegisterViewSet, LoginViewSet, RefreshViewSet
 from core.comment.viewsets import CommentViewSet
 
-router = routers.SimpleRouter()
+router = routers.SimpleRouter()  # type: ignore
 
 # ##################################################################### #
 # ################### AUTH                       ###################### #

@@ -3,14 +3,14 @@ import { FormEvent, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 export type UserLogin = {
-  username: string;
+  email: string;
   password: string;
 };
 
 const LoginForm = () => {
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState<UserLogin>({
-    username: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ const LoginForm = () => {
     setValidated(true);
 
     const data: UserLogin = {
-      username: form.username,
+      email: form.email,
       password: form.password,
     };
 
@@ -47,10 +47,10 @@ const LoginForm = () => {
       onSubmit={(e) => handleSubmit(e)}
     >
       <Form.Group className="mb-3">
-        <Form.Label>Username</Form.Label>
+        <Form.Label>E-mail</Form.Label>
         <Form.Control
-          value={form.username}
-          onChange={(e) => setForm({ ...form, username: e.target.value })}
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
           type="text"
           placeholder="Enter username"
