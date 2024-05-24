@@ -1,11 +1,11 @@
-import { Col, Row, Image } from "react-bootstrap";
-import Layout from "../components/Layout";
-import { getUser } from "../hooks/user.actions";
-import { randomAvatar } from "../helpers/utils";
-import CreatePost from "../components/posts/CreatePost";
+import { Col, Image, Row } from "react-bootstrap";
 import useSWR from "swr";
-import { fetcher } from "../helpers/axios";
+import Layout from "../components/Layout";
+import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
+import { fetcher } from "../helpers/axios";
+import { randomAvatar } from "../helpers/utils";
+import { getUser } from "../hooks/user.actions";
 
 const HomePage = () => {
   const posts = useSWR("/api/post/", fetcher, {
@@ -31,7 +31,7 @@ const HomePage = () => {
           />
         </Col>
         <Col className="flex-grow-1" sm={10}>
-          <CreatePost />
+          <CreatePost refresh={posts.mutate} />
         </Col>
         <Row className="my-4">
           {posts.data?.results.map((post: any, index: any) => (

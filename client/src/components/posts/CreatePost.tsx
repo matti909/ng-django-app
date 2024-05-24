@@ -26,7 +26,11 @@ export interface Author {
   updated: Date;
 }
 
-const CreatePost = () => {
+type Props = {
+  refresh: () => void;
+};
+
+const CreatePost: React.FC<Props> = ({ refresh }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -65,6 +69,7 @@ const CreatePost = () => {
           author: "",
           body: "",
         });
+        refresh();
       })
       .catch(() => {
         setToastMessage("An error occurred.");

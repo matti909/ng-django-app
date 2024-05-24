@@ -11,7 +11,9 @@ import axiosService from "../../helpers/axios";
 import { randomAvatar } from "../../helpers/utils";
 import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
+import type { UserRegister } from "../authentication/RegistrationForm";
 import type { Post } from "./CreatePost";
+import UpdatePost from "./UpdatePost";
 
 type Props = {
   post: Post;
@@ -41,11 +43,11 @@ const Post: React.FC<Props> = (props) => {
   const { post, refresh } = props;
   const [showToast, setShowToast] = React.useState(false);
 
-  const user = getUser();
+  const user = getUser() as UserRegister;
 
   const handleDelete = () => {
     axiosService
-      .delete(`/post/${post.id}/`)
+      .delete(`/api/post/${post.id}/`)
       .then(() => {
         setShowToast(true);
         refresh();
@@ -55,7 +57,7 @@ const Post: React.FC<Props> = (props) => {
 
   const handleLikeClick = (action: any) => {
     axiosService
-      .post(`/post/${post.id}/${action}/`)
+      .post(`/api/post/${post.id}/${action}/`)
       .then(() => {
         refresh();
       })
@@ -82,11 +84,12 @@ const Post: React.FC<Props> = (props) => {
                 </p>
               </div>
             </div>
-            {user!.name === post.author.username && (
+            {user.username === post.author.username && (
               <div>
                 <Dropdown>
                   <Dropdown.Toggle as={MoreToggleIcon}></Dropdown.Toggle>
                   <Dropdown.Menu>
+                    <UpdatePost post={post} refresh={refresh} />
                     <Dropdown.Item
                       onClick={handleDelete}
                       className="text-danger"
