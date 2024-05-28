@@ -13,6 +13,10 @@ class PostSerializer(AbstractSerializer):
     )
     liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+
+    def get_comments_count(self, instance):
+        return instance.comment_set.count()
 
     def get_liked(self, instance):
 
@@ -56,6 +60,7 @@ class PostSerializer(AbstractSerializer):
             "edited",
             "liked",
             "likes_count",
+            "comments_count",
             "created",
             "updated",
         ]

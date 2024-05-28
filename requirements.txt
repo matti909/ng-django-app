@@ -3,3 +3,4 @@ psycopg2-binary==2.9.9
 djangorestframework==3.15.1
 django-filter==24.2
 drf-nested-routers==0.94.1
+pillow==10.3.0

@@ -3,28 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { getUser } from "../../hooks/user.actions";
 import Toaster from "../Toaster";
-
-export interface Post {
-  id: string;
-  author: Author;
-  body: string;
-  edited: boolean;
-  liked: boolean;
-  likes_count: number;
-  created: Date;
-  updated: Date;
-}
-
-export interface Author {
-  id: string;
-  username: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  is_active: boolean;
-  created: Date;
-  updated: Date;
-}
+import type { UserCurrent } from "../../types";
 
 type Props = {
   refresh: () => void;
@@ -44,7 +23,7 @@ const CreatePost: React.FC<Props> = ({ refresh }) => {
     author: "",
     body: "",
   });
-  const user = getUser();
+  const user = getUser() as UserCurrent;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

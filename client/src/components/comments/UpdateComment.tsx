@@ -2,32 +2,35 @@ import React, { FormEvent, useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { useToaster } from "../../hooks/useToaster";
-import { PostProps } from "../../types";
+import { CommentProps } from "./Comments";
 
 type Props = {
-  post: PostProps;
+  postId: number;
+  comment: CommentProps;
   refresh: () => void;
 };
 
-const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
+const UpdateComment: React.FC<Props> = (props) => {
+  const { postId, comment, refresh } = props;
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState({
-    author: post.author.id,
-    body: post.body,
+    author: comment.author.id,
+    body: comment.body,
+    post: postId,
   });
+
+  const { setToaster } = useToaster();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { setToaster } = useToaster();
+  const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const updateCommentForm = e.currentTarget;
 
-  const handleSubmit = (event: FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const updatePostForm = event.currentTarget;
-
-    if (updatePostForm.checkValidity() === false) {
-      event.stopPropagation();
+    if (updateCommentForm.checkValidity() === false) {
+      e.stopPropagation();
     }
 
     setValidated(true);
@@ -35,15 +38,16 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
     const data = {
       author: form.author,
       body: form.body,
+      post: postId,
     };
 
     axiosService
-      .put(`/api/post/${post.id}/`, data)
+      .put(`/api/post/${postId}/comment/${comment.id}/`, data)
       .then(() => {
         handleClose();
         setToaster({
           type: "success",
-          message: "Post updated 🚀",
+          message: "Comment updated 🚀",
           show: true,
           title: "Success!",
         });
@@ -54,15 +58,14 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
           type: "danger",
           message: "An error occurred.",
           show: true,
-          title: "Post Error",
+          title: "Comment Error",
         });
       });
   };
 
   return (
     <>
-      <Dropdown.Item onClick={handleShow}>modify</Dropdown.Item>
-
+      <Dropdown.Item onClick={handleShow}>Modify</Dropdown.Item>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton className="border-0">
           <Modal.Title>Update Post</Modal.Title>
@@ -72,13 +75,11 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
             noValidate
             validated={validated}
             onSubmit={(e) => handleSubmit(e)}
-            data-testid="update-post-form"
           >
             <Form.Group className="mb-3">
               <Form.Control
                 name="body"
                 value={form.body}
-                data-testid="post-body-field"
                 onChange={(e) => setForm({ ...form, body: e.target.value })}
                 as="textarea"
                 rows={3}
@@ -87,12 +88,7 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            data-testid="update-post-submit"
-            variant="primary"
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-          >
+          <Button variant="primary" onClick={(e) => handleSubmit(e)}>
             Modify
           </Button>
         </Modal.Footer>
@@ -101,4 +97,4 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
   );
 };
 
-export default UpdatePost;
+export default UpdateComment;

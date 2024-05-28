@@ -3,16 +3,20 @@ import useSWR from "swr";
 import Layout from "../components/Layout";
 import CreatePost from "../components/posts/CreatePost";
 import Post from "../components/posts/Post";
+import ProfileCard from "../components/profile/ProfileCard";
 import { fetcher } from "../helpers/axios";
 import { randomAvatar } from "../helpers/utils";
 import { getUser } from "../hooks/user.actions";
+import type { UserCurrent } from "../types";
 
 const HomePage = () => {
   const posts = useSWR("/api/post/", fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 500000,
   });
 
-  const user = getUser();
+  const profiles = useSWR("/api/user/?limit=5", fetcher);
+
+  const user = getUser() as UserCurrent;
 
   if (!user) {
     return <div>Loading...</div>;
@@ -38,6 +42,15 @@ const HomePage = () => {
             <Post key={index} post={post} refresh={posts.mutate} />
           ))}
         </Row>
+        <Col sm={3} className="border rounded py-4 h-50">
+          <h4 className="font-weight-bold text-center">Suggested people</h4>
+          <div className="d-flex flex-column">
+            {profiles.data &&
+              profiles.data.results.map((profile: any, index: number) => (
+                <ProfileCard key={index} user={profile} />
+              ))}
+          </div>
+        </Col>
       </Row>
     </Layout>
   );

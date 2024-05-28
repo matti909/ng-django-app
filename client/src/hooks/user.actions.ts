@@ -70,4 +70,4 @@ function setUserData(data) {
   );
 }
 
-export { useUserActions, getUser, getAccessToken, getRefreshToken };
+export { getAccessToken, getRefreshToken, getUser, useUserActions };
