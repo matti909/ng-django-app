@@ -8,7 +8,6 @@ import Post from "../components/posts/Post";
 
 const Profile = () => {
   const { profileId } = useParams();
-  console.log(profileId);
 
   const user = useSWR(`/api/user/${profileId}/`, fetcher);
 

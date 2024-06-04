@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Card, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { randomAvatar } from "../../helpers/utils";
 import { UserCurrent } from "../../types";
 
 type Props = {
@@ -20,7 +19,7 @@ const ProfileCard: React.FC<Props> = (props) => {
     <Card className="border-0 p-2">
       <div className="d-flex ">
         <Image
-          src={randomAvatar()}
+          src={user.avatar}
           roundedCircle
           width={48}
           height={48}

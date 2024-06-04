@@ -36,7 +36,7 @@ const ProfileDetails: React.FC<Props> = (props) => {
             <Button
               variant="primary"
               size="sm"
-              className="w-25"
+              className="w-[2rem]"
               onClick={() => navigate(`/profile/${user.id}/edit/`)}
             >
               Edit

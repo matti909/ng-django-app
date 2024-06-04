@@ -12,6 +12,12 @@ export interface UserCurrent {
   updated: Date;
 }
 
+export interface DataCurrent {
+  refresh: string;
+  access: string;
+  user: UserCurrent;
+}
+
 export interface PostProps {
   id: string;
   author: UserCurrent;

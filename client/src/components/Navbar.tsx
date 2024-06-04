@@ -1,9 +1,13 @@
 import { Container, Image, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { randomAvatar } from "../helpers/utils";
+import { getUser } from "../hooks/user.actions";
+import { UserCurrent } from "../types";
 
 const Navigationbar = () => {
   const navigate = useNavigate();
+
+  const user = getUser() as UserCurrent;
 
   const handleLogOut = () => {
     localStorage.removeItem("auth");
@@ -27,7 +31,9 @@ const Navigationbar = () => {
                 />
               }
             >
-              <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={`/profile/${user.id}/`}>
+                Profile
+              </NavDropdown.Item>
               <NavDropdown.Item onClick={() => handleLogOut()}>
                 Logout
               </NavDropdown.Item>

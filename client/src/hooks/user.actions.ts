@@ -2,6 +2,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserLogin } from "../components/authentication/LoginForm";
 import { UserRegister } from "../components/authentication/RegistrationForm";
+import type { DataCurrent } from "../types";
+import axiosService from "../helpers/axios";
 
 function useUserActions() {
   const navigate = useNavigate();
@@ -11,7 +13,27 @@ function useUserActions() {
     login,
     register,
     logout,
+    edit,
   };
+
+  async function edit(data: any, userId: string) {
+    return axiosService
+      .patch(`${baseURL}/user/${userId}/`, data, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            access: getAccessToken(),
+            refresh: getRefreshToken(),
+            user: res.data,
+          })
+        );
+      });
+  }
 
   // Login the user
   async function login(data: UserLogin) {
@@ -38,7 +60,7 @@ function useUserActions() {
 
 // Get the user
 function getUser() {
-  const auth = JSON.parse(localStorage.getItem("auth")) || null;
+  const auth = JSON.parse(localStorage.getItem("auth")!) || null;
   if (auth) {
     return auth.user;
   } else {
@@ -48,18 +70,18 @@ function getUser() {
 
 // Get the access token
 function getAccessToken() {
-  const auth = JSON.parse(localStorage.getItem("auth"));
+  const auth = JSON.parse(localStorage.getItem("auth")!);
   return auth.access;
 }
 
 // Get the refresh token
 function getRefreshToken() {
-  const auth = JSON.parse(localStorage.getItem("auth"));
+  const auth = JSON.parse(localStorage.getItem("auth")!);
   return auth.refresh;
 }
 
 // Set the access, token and user property
-function setUserData(data) {
+function setUserData(data: DataCurrent) {
   localStorage.setItem(
     "auth",
     JSON.stringify({

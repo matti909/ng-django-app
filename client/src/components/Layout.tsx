@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children, hasNavigationBack }) => {
 
   return (
     <Context.Provider value={value}>
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <Navigationbar />
         {hasNavigationBack && (
           <ArrowLeftOutlined
