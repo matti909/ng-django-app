@@ -18,7 +18,7 @@ class UserSerializer(AbstractSerializer):
         else:
             request = self.context.get("request")
             if request is not None:
-                representation["avatar"] = request.build_absolute_uri(  # type: ignore
+                representation["avatar"] = request.build_absolute_uri(
                     representation["avatar"]
                 )
         return representation
