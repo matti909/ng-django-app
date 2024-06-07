@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  docker run:
+  build-test:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
