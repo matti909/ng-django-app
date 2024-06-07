@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-test:
+  docker run:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
@@ -14,8 +14,8 @@ jobs:
         echo "${{ secrets.TEST_SECRETS }}" >> .env
     - name: Building Docker containers
       run: |
-        docker compose up -d --build
-        docker compose logs
+        sudo docker compose up -d --build
+        sudo docker compose logs
 
   deploy:
     name: Deploying on EC2 via SSH
