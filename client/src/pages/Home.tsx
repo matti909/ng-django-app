@@ -11,7 +11,7 @@ import type { UserCurrent } from "../types";
 
 const HomePage = () => {
   const posts = useSWR("/api/post/", fetcher, {
-    refreshInterval: 500000,
+    refreshInterval: 5000000,
   });
 
   const profiles = useSWR("/api/user/?limit=5", fetcher);
