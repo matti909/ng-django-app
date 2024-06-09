@@ -10,7 +10,7 @@ import { getUser } from "../hooks/user.actions";
 import type { UserCurrent } from "../types";
 
 const HomePage = () => {
-  const posts = useSWR("/api/post/", fetcher, {
+  const posts = useSWR("/api/post/", fetcher, 
     refreshInterval: 5000000,
   });
 
