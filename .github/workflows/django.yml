@@ -24,7 +24,7 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Deploying Application on EC2
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SSH_EC2_IP }}
         username: ${{ secrets.SSH_EC2_USER }}
