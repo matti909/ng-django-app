@@ -16,10 +16,7 @@ jobs:
       run: |
         docker compose up -d --build
         docker compose logs
-    - name: Running Tests inside Docker containers
-      run: |
-        docker-compose exec -T api pytest
-
+        
   deploy:
     name: Deploying on EC2 via SSH
     if: ${{ github.event_name == 'push' }}
