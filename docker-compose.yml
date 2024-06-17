@@ -13,6 +13,13 @@ services:
     depends_on:
       - api
 
+  db:
+    container_name: postagram_db
+    image: postgres:14.3-alpine
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
   api:
     container_name: django-social
     build: .
@@ -27,12 +34,7 @@ services:
       - uploads_volume:/app/uploads
     depends_on:
       - db
-  db:
-    container_name: postagram_db
-    image: postgres:14.3-alpine
-    env_file: .env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+  
 volumes:
   uploads_volume:
   postgres_data:
