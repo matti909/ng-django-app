@@ -100,11 +100,13 @@ WSGI_APPLICATION = "CoreRoot.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "defaultdb",
-        "USER": "avnadmin",
-        "PASSWORD": "AVNS_Ll2Io7GmPnFuARCV_UB",
-        "HOST": "pg-2747a731-postgres-09d7.i.aivencloud.com",
-        "PORT": "18500",
+        "NAME": os.getenv("DATABASE_NAME", "coredb"),
+        "USER": os.getenv("DATABASE_USER", "core"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD",
+        "wCh29&HE&T83"),
+        "HOST": os.environ.get("DATABASE_HOST",
+        "localhost"),
+        "PORT": os.getenv("DATABASE_PORT", "5432"),
     }
 }
 
