@@ -24,7 +24,7 @@ const RegistrationForm = () => {
   const [error, setError] = useState(null);
   const { register } = useUserActions();
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const registerForm = e.currentTarget;
 
@@ -56,7 +56,7 @@ const RegistrationForm = () => {
       className="border p-2 rounded"
       noValidate
       validated={validated}
-      onSubmit={(e: any) => handleSubmit(e)}
+      onSubmit={handleSubmit}
     >
       <Form.Group className="mb-3">
         <Form.Label>First Name</Form.Label>
@@ -115,7 +115,7 @@ const RegistrationForm = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control
           value={form.password}
-          minLength="8"
+          minLength={8}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
           type="password"

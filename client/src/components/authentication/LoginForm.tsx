@@ -16,7 +16,7 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const { login } = useUserActions();
 
-  const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const loginForm = e.currentTarget;
 
@@ -44,7 +44,7 @@ const LoginForm = () => {
       className="border p-4 rounded"
       noValidate
       validated={validated}
-      onSubmit={(e) => handleSubmit(e)}
+      onSubmit={handleSubmit}
     >
       <Form.Group className="mb-3">
         <Form.Label>E-mail</Form.Label>
@@ -64,7 +64,7 @@ const LoginForm = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control
           value={form.password}
-          minLength="8"
+          minLength={8}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
           type="password"

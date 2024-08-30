@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import axiosService from "../../helpers/axios";
 import { useToaster } from "../../hooks/useToaster";
-import { CommentProps } from "./Comments";
+import { CommentProps } from "../../types";
 
 type Props = {
   postId: number;
@@ -25,7 +25,7 @@ const UpdateComment: React.FC<Props> = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updateCommentForm = e.currentTarget;
 
@@ -74,7 +74,7 @@ const UpdateComment: React.FC<Props> = (props) => {
           <Form
             noValidate
             validated={validated}
-            onSubmit={(e) => handleSubmit(e)}
+            onSubmit={handleSubmit}
           >
             <Form.Group className="mb-3">
               <Form.Control
@@ -88,7 +88,7 @@ const UpdateComment: React.FC<Props> = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={(e) => handleSubmit(e)}>
+          <Button variant="primary" type="submit">
             Modify
           </Button>
         </Modal.Footer>

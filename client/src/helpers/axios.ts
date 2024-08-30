@@ -3,7 +3,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { getAccessToken, getRefreshToken } from "../hooks/user.actions";
 
 const axiosService = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "http://localhost:8000/",
   headers: {
     "Content-Type": "application/json",
   },

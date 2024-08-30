@@ -2,8 +2,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserLogin } from "../components/authentication/LoginForm";
 import { UserRegister } from "../components/authentication/RegistrationForm";
-import type { DataCurrent } from "../types";
 import axiosService from "../helpers/axios";
+import type { DataCurrent } from "../types";
 
 function useUserActions() {
   const navigate = useNavigate();

@@ -22,7 +22,7 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
 
   const { setToaster } = useToaster();
 
-  const handleSubmit = (event: FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const updatePostForm = event.currentTarget;
 
@@ -71,7 +71,7 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
           <Form
             noValidate
             validated={validated}
-            onSubmit={(e) => handleSubmit(e)}
+            onSubmit={handleSubmit}
             data-testid="update-post-form"
           >
             <Form.Group className="mb-3">
@@ -91,7 +91,6 @@ const UpdatePost: React.FC<Props> = ({ post, refresh }) => {
             data-testid="update-post-submit"
             variant="primary"
             type="submit"
-            onClick={(e) => handleSubmit(e)}
           >
             Modify
           </Button>

@@ -4,7 +4,7 @@ import axiosService from "../../helpers/axios";
 import { randomAvatar } from "../../helpers/utils";
 import { useToaster } from "../../hooks/useToaster";
 import { getUser } from "../../hooks/user.actions";
-import type { Author } from "../posts/CreatePost";
+import { UserCurrent } from "../../types";
 
 type Props = {
   postId: number;
@@ -21,9 +21,9 @@ const CreateComment: React.FC<Props> = (props) => {
 
   const { setToaster } = useToaster();
 
-  const user = getUser() as Author;
+  const user = getUser() as UserCurrent;
 
-  const handleSubmit = (event: FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const createCommentForm = event.currentTarget;
 
@@ -66,7 +66,7 @@ const CreateComment: React.FC<Props> = (props) => {
       className="d-flex flex-row justify-content-between"
       noValidate
       validated={validated}
-      onSubmit={(e) => handleSubmit(e)}
+      onSubmit={handleSubmit}
     >
       <Image
         src={avatar}
@@ -88,7 +88,6 @@ const CreateComment: React.FC<Props> = (props) => {
       <div className="m-auto">
         <Button
           variant="primary"
-          onClick={(e) => handleSubmit(e)}
           disabled={form.body === undefined}
           size="sm"
         >
