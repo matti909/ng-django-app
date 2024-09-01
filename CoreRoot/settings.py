@@ -22,8 +22,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000", "https://ng-django-app.vercel.app"]
 
 CORS_ALLOW_METHODS = [
     "GET",
@@ -100,7 +99,7 @@ WSGI_APPLICATION = "CoreRoot.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("DATABASE_NAME", "coredb"),
+        "NAME": os.environ.get("DATABASE_NAME", "coredb"),
         "USER": os.getenv("DATABASE_USER", "core"),
         "PASSWORD": os.getenv("DATABASE_PASSWORD",
         "wCh29&HE&T83"),
