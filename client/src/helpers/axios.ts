@@ -3,7 +3,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { getAccessToken, getRefreshToken } from "../hooks/user.actions";
 
 const axiosService = axios.create({
-  baseURL: "http://18.118.241.22:8000/",
+  baseURL: "http://18.219.200.10:8000/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -22,7 +22,7 @@ axiosService.interceptors.response.use(
 const refreshAuthLogic = async (failedRequest: any) => {
   return axios
     .post("/refresh/token/", null, {
-      baseURL: "http://18.118.241.22:8000",
+      baseURL: "http://18.219.200.10:8000",
       headers: {
         Authorization: `Bearer ${getRefreshToken()}`,
       },
