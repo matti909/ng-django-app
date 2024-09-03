@@ -7,7 +7,7 @@ import type { DataCurrent } from "../types";
 
 function useUserActions() {
   const navigate = useNavigate();
-  const baseURL = "http://18.118.241.22:8000/api";
+  const baseURL = "http://18.118.241.22/api";
 
   return {
     login,
