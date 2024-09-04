@@ -3,5 +3,9 @@
     "us-east-2a",
     "us-east-2b",
     "us-east-2c"
-  ]
+  ],
+  "hosted-zone:account=533267189207:domainName=fastapp.website:region=us-east-2": {
+    "Id": "/hostedzone/Z06255482KCWAP8PP7I9E",
+    "Name": "fastapp.website."
+  }
 }

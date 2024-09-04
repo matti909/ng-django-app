@@ -22,7 +22,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000", "https://ng-django-app.vercel.app"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000", "http://fastapp.website.s3-website.us-east-2.amazonaws.com"]
 
 CORS_ALLOW_METHODS = [
     "GET",
