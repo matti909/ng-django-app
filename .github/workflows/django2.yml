@@ -1,0 +1,35 @@
+name: Django CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-test:
+    runs-on: ubuntu
+    steps:
+      - uses: actions/checkout@v3
+      - name: Injecting environment vars
+        run: |
+          echo "${{ secrets.TEST_SECRETS }}" >> .env
+      - name: Building Docker containers
+        run: |
+          sudo docker compose up -d --build
+          sudo docker compose logs
+
+  deploy:
+    name: Deploying on EC2 via SSH
+    if: ${{ github.event_name == 'push' }}
+    needs: [build-test]
+    runs-on: ubuntu
+    steps:
+      - name: Deploying Application on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_EC2_IP }}
+          username: ${{ secrets.SSH_EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/.scripts
+            ./docker-ec2-deploy.sh
